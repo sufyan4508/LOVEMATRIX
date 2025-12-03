@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Loving Profile Page - Abu Sufyan</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg1: #e6e2e2;
+            --bg2: #c0b9b1;
+            --bg3: #7c99ad;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --accent1: #ff809f;
+            --accent2: #ff9bb3;
+            --muted: #6b7280;
+            --text: #0f172a;
+            --radius: 14px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Reset + base */
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 120%
+        }
+
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, var(--bg1));
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            height: 95%;
+            padding-top: 60px;
+            /* space for nav */
+            display: flex;
+            justify-content: right;
+            align-items: flex-start;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 20px;
+
+        }
+
+        /* TOP FIXED NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            gap: 12px;
+            padding: 0 18px;
+            background: linear-gradient(135deg, var(--bg1), var(--bg3));
+            backdrop-filter: blur(6px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            z-index: 9999;
+        }
+
+        .nav-btn {
+            appearance: none;
+            border: 0;
+            padding: 10px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            background: #cbccce;
+            color: #3a3636;
+            transition: transform .15s ease, background .15s ease;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            background: #292a2c;
+            color: whitesmoke;
+            border: 2px solid rgb(148, 141, 241);
+        }
+
+        .nav-btn:active {
+            transform: translateY(-4px);
+            background: whitesmoke;
+            color: rgb(23, 21, 21);
+            border: 1px solid rgb(49, 83, 49);
+        }
+
+        /* Page container */
+        .wrap {
+            width: 100%;
+            max-width: 1100px;
+            margin: 20px auto 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+            animation: fadeIn .55s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: transform .18s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px) scale(1.005);
+        }
+
+        /* Left top block */
+        .profile-head {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 3px solid #fed1de;
+            flex-shrink: 0;
+            background: #eee;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block
+        }
+
+        h2 {
+            margin: 0 0 6px 0;
+            font-size: 20px;
+            color: var(--text);
+        }
+
+        p.small {
+            margin: 0;
+            color: #444;
+            font-size: 14px;
+        }
+
+        .tags {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #ffe6ee;
+            color: #d63384;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            display: inline-block;
+        }
+
+        .tag.secondary {
+            background: #e6f0ff;
+            color: #2563eb;
+        }
+
+        /* Action buttons center */
+        .actions {
+            margin-top: 18px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 0;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            color: #fff;
+        }
+
+        .btn-outline {
+            background: #fff;
+            color: #d6336c;
+            border: 1px solid #ff8fb0;
+        }
+
+        .btn-secondary {
+            background: #111827;
+            color: #fff;
+        }
+
+        /* Profile grid (Education / Hobbies) - uses pf-card style */
+        .profile-grid {
+            margin-top: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .pf-card {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            background: linear-gradient(180deg, #fff, #fbfdff);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(23, 43, 77, 0.06);
+            box-shadow: 0 6px 18px rgba(20, 30, 50, 0.04);
+        }
+
+        .pf-accent {
+            width: 6px;
+            height: 100%;
+            border-radius: 8px;
+            background: linear-gradient(180deg, #6366f1, #4f46e5);
+            flex-shrink: 0;
+        }
+
+        .pf-title {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        .pf-value {
+            font-weight: 600;
+            font-size: 16px;
+            margin-top: 4px;
+            color: var(--text);
+        }
+
+        .pf-sub {
+            font-size: 13px;
+            color: #374151;
+            margin-top: 8px;
+            opacity: .95;
+        }
+
+        .pf-badge {
+            margin-left: auto;
+            padding: 6px 8px;
+            border-radius: 999px;
+            background: rgba(99, 102, 241, 0.08);
+            color: #4f46e5;
+            font-size: 12px;
+        }
+
+        /* Right column - proposal card specifics */
+        .proposal .proposal-quote {
+            margin-top: 10px;
+            background: linear-gradient(to right, #fff1f2, #eff6ff);
+            padding: 14px;
+            border-radius: 12px;
+        }
+
+        .proposal .centered-actions {
+            margin-top: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+        }
+
+        /* Portfolio row spanning columns */
+        .portfolio {
+            grid-column: 1/ -1;
+            margin-top: 0px
+        }
+
+        .projects {
+            margin-top: 0px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .proj-card {
+            padding: 2px 2px 2px 5px;
+            border-radius: 10px;
+            background: #f0ecec;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        /* TEA LOVER page */
+        #tea-lover-page {
+            display: none;
+            text-align: center;
+            width: 100%;
+            max-width: 1100px;
+            margin: 16px auto;
+            padding: 18px;
+            border-radius: 12px;
+        }
+
+        .tea-slider-box {
+            width: 100%;
+            max-width: 900px;
+            height: 360px;
+            margin: 12px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        #tea-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .back-btn {
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: 0;
+            background: linear-gradient(90deg, #ff9bb3, #ff7f9f);
+            color: #fff;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        /* Modal + toast */
+        .modal-bg {
+            position: fixed;
+            inset: 0;
+            display: none;
+            background: rgba(0, 0, 0, 0.45);
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .modal {
+            background: #fff;
+            padding: 18px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 14px 40px rgba(2, 6, 23, 0.2);
+        }
+
+        .toast {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: #fff;
+            padding: 12px 16px;
+            border-radius: 10px;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            z-index: 10001;
+        }
+
+        /* small screens */
+        @media(max-width:900px) {
+            .wrap {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-img {
+                width: 86px;
+                height: 86px
+            }
+        }
+
+        @media(max-width:520px) {
+            body {
+                padding-top: 84px
+            }
+
+            .navbar {
+                height: 72px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" role="navigation" aria-label="Top navigation"
+        style="display:flex; justify-content:space-between; align-items:center; padding:10px 20px; background-color:#333;">
+
+        <!-- Left: Logo + Website Name -->
+        <div class="navbar-left" style="display:flex; align-items:center; gap:10px;">
+            <img src="images/logo.png" alt="Logo" style="width:80px; height:80px; object-fit:contain;">
+            <span
+                style="font-size:30px; font-weight:500; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; letter-spacing:1px; color:#f5f5f5;">
+                LOVEMATRIX
+            </span>
+        </div>
+
+        <!-- Right: Navigation Buttons -->
+        <div class="navbar-right" style="display:flex; align-items:center; gap:15px;">
+            <button class="nav-btn" type="button" onclick="window.location.href='Propose.html'">Proposal</button>
+            <button class="nav-btn" type="button" onclick="window.location.href='MyConcern.html'">Message</button>
+            <button class="nav-btn" type="button" onclick="window.location.href='Hightlight.html'">Message</button>
+            <button class="nav-btn" type="button" onclick="openTeaLover()">Tea Lover</button>
+        </div>
+    </nav>
+
+    <!-- <nav class="navbar" role="navigation" aria-label="Top navigation">
+        <button class="nav-btn" type="button" onclick="openAbuSufyan()">About Me</button>
+        <button class="nav-btn" type="button" onclick="openPortfolio()">Portfolio</button>
+        <button class="nav-btn" type="button" onclick="openTeaLover()">Tea Lover</button>
+        <button class="nav-btn" type="button" onclick="ProposalSection()">Proposal Section</button>
+    </nav> -->
+
+    <!-- MAIN WRAPPER -->
+    <main class="wrap" id="main-page">
+
+        <!-- LEFT CARD -->
+        <section class="card" aria-labelledby="profile-heading" id="about">
+            <div class="profile-head">
+                <div class="profile-img" aria-hidden="true">
+                    <!-- local path example; replace with hosted URL for web -->
+                    <img src="images/Sufyan.jpg" alt="Abu Sufyan avatar">
+                </div>
+
+                <div>
+                    <h2 id="profile-heading">Abu Sufyan</h2>
+                    <p class="small">Full-Stack Web Developer & Graphic Designer</p>
+
+                    <div class="tags" aria-hidden="true">
+                        <span class="tag">•React •Node.js •Developer</span>
+                        <span class="tag secondary">•AI •Python •Tailwind •Django</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="small" style="margin-top:14px;">
+                Hello! I'm <strong>Abu Sufyan</strong> — Lives in Faisalabad. From Okara Depalpur. Final-year IT student
+                at
+                <em>National University of Modern Languages, Faisalabad Campus</em>. Graphic Designer & Web Developer.
+            </p>
+
+            <div class="actions" role="group" aria-label="Primary actions">
+                <button class="btn btn-primary" type="button" onclick="openTeaLover()"><b>Tea_Lover</b> →</button>
+                <a class="btn btn-primary" href="#portfolio">Portfolio →</a>
+                <a class="btn btn-secondary" href="mailto:youremail@example.com">✉ Contact</a>
+            </div>
+
+            <!-- PROFILE GRID / STATS -->
+            <div class="profile-grid" role="list" aria-label="Profile stats">
+                <div class="pf-card" role="listitem">
+                    <div class="pf-accent" aria-hidden="true"></div>
+                    <div style="flex:1;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <div>
+                                <div class="pf-title">Education</div>
+                                <div class="pf-value" id="education">BSIT</div>
+                            </div>
+                            <div class="pf-badge" aria-hidden="true">🎓</div>
+                        </div>
+                        <div class="pf-sub">Department of Computer Science — ongoing studies</div>
+                    </div>
+                </div>
+
+                <div class="pf-card" role="listitem">
+                    <div class="pf-accent" aria-hidden="true"
+                        style="background:linear-gradient(180deg,#fb7185,#f97316)"></div>
+                    <div style="flex:1;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <div>
+                                <div class="pf-title">Hobbies</div>
+                                <div class="pf-value" id="hobbies">Poetry · Cricket · Chess</div>
+                            </div>
+                            <div class="pf-badge" aria-hidden="true">✨</div>
+                        </div>
+                        <div class="pf-sub">شوقِ شاعری، کھیل اور حکمت — میری شخصیت کی نرم جھلک</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RIGHT CARD: Proposal -->
+        <aside class="card proposal" aria-labelledby="proposal-heading">
+            <h3 id="proposal-heading">A Loving Proposal ❤️</h3>
+            <p class="small" style="color:#444; margin-top:6px;">
+                <strong>یہ خوبصورت پروپوزل سیکشن محبت، چاہت، پیار کے جذبات , دل کو چھو لینے والے احساسات اور ایموشنل ٹچ
+                    کی خوبصورتی کے ساتھ تیار کیا گیا ہے۔</strong>
+            </p>
+
+            <div class="proposal-quote">
+
+
+                <div class="centered-actions" style="margin-top:12px;">
+                    <!-- CENTERED BUTTONS -->
+                    <!-- Buttons with links to relevant pages -->
+                    <div style="width:100%; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+                        <a href="propose.html"><button class="btn btn-outline">❤ Propose ❤</button></a>
+                        <a href="accept.html"><button class="btn btn-primary">Accept</button></a>
+                        <a href="rejected.html"><button class="btn btn-primary">Rejected</button></a>
+                        <a href="Ahar.html"><button class="btn btn-outline">❤ <strong>اشعار</strong> ❤</button></a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div style="margin:5px; padding:7px; background:linear-gradient(to right,#fff1f2,#eff6ff); border-radius:15px;">
+                <div class="profile-grid" role="list" aria-label="Profile stats">
+                    <div class="pf-card" role="listitem">
+                        <div class="pf-accent" aria-hidden="true"></div>
+                        <div style="flex:1;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <div>
+                                    <div class="pf-title">MyConcern</div>
+                                    <div class="pf-value" id="Concerns">Sufyan </div>
+                                </div>
+                                <div class="pf-badge" aria-hidden="true">🎓</div>
+                            </div>
+                            <div class="pf-sub">Dur.e.Maknoon! Click here to know my purpose</div>
+
+                             <button onclick="window.location.href='MyConcern.html'"
+                                style="border: 1px solid black; background-color: rgb(231, 231, 231); color: black; border-radius: 7px; justify-content: center; margin-top: 5px;">Message</button>
+                        </div>
+
+                    </div>
+
+                    <div class="pf-card" role="listitem">
+                        <div class="pf-accent" aria-hidden="true"
+                            style="background:linear-gradient(180deg,#fb7185,#f97316)"></div>
+                        <div style="flex:1;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <div>
+                                    <div class="pf-title">Highlights</div>
+                                    <div class="pf-value" id="Hightlight">Dur.e.Maknoon</div>
+                                </div>
+                                <div class="pf-badge" aria-hidden="true">✨</div>
+                            </div>
+                            <div class="pf-sub">If You are Feeling upset after reading Proposal Then Click here.</div>
+                            <button onclick="window.location.href='Hightlight.html'"
+                                style="border: 1px solid black; background-color: rgb(231, 231, 231); color: black; border-radius: 7px; justify-content: center; margin-top: 5px;">Hightlights</button>
+                        </div>
+                    </div>
+                </div>
+
+        </aside>
+
+        <!-- PORTFOLIO (span full width) -->
+        <section class="card portfolio" id="portfolio" aria-labelledby="projects-heading">
+            <h3 id="projects-heading">Projects Portfolio</h3>
+
+            <div class="projects" role="list">
+                <article class="proj-card" role="listitem">
+                    <a href="file:///D:/Web%20Development%20by%20Harry/Course%20CSS/Poetry_11.html"><strong>Sufyan's
+                            Poetry</strong></a>
+                    <div style="font-size:12px;color:#8a8989;margin-top:8px;">•HTML •Python •Java</div>
+                </article>
+
+                <article class="proj-card" role="listitem">
+                    <a href="https://echo-frame-plus.vercel.app/"><strong>EchoFrame+</strong></a>
+                    <div style="font-size:12px;color:#676565;margin-top:8px;">•React •JavaScript •Node.js</div>
+                </article>
+
+                <article class="proj-card" role="listitem">
+                    <a href="#Fashion"><strong>Fashion Recommender</strong></a>
+                    <div style="font-size:12px;color:#777;margin-top:8px;">•Flutter •Python •AI</div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- TEA LOVER PAGE (separate block) -->
+    <section id="tea-lover-page" aria-hidden="true">
+        <h2 style="font-weight:900; color:#ff0606; text-align:center;">
+            <img src="E:/Maknoon/tea logo.png" alt=""
+                style="width:130px; display:block; margin:6px auto 10px; border-radius:10px;">
+            Tea Lover Gallery
+        </h2>
+        <p style="text-align:center; color:#110d0d; margin-top:0;"><p style="text-align:center; color:#211919;">
+    Welcome to the <strong>Tea Lover Gallery</strong>, a cozy corner for <strong>tea enthusiasts</strong>.<br>
+    Explore a delightful collection of <strong>tea moments</strong> and <strong>serenity</strong> in every sip.<br>
+    Relax, unwind, and celebrate your <strong>love for tea</strong>!
+</p>
+
+
+        <div class="tea-slider-box" aria-hidden="true">
+            <img id="tea-img" src="" alt="Tea image slider">
+        </div>
+
+        <div style="text-align:center;">
+            <button class="back-btn" type="button" onclick="closeTeaLover()">← Back to Profile</button>
+        </div>
+    </section>
+
+    <!-- MODAL -->
+    <div class="modal-bg" id="modal-bg" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <h4 id="modal-title">Send a Loving Note</h4>
+            <textarea id="msg" placeholder="اپنا پیغام لکھیں..."
+                style="width:500px;height:50%;margin-top:10px;padding:10px;border:1px solid #ddd;border-radius:8px;"></textarea>
+
+            <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:12px;">
+                <button class="btn btn-outline" type="button" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" type="button" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast" role="status" aria-live="polite">Message Sent Successfully ❤️</div>
+
+
+
+
+
+
+    <script>
+        /* ---------- Utilities ---------- */
+
+        function scrollTo(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        /* ---------- Tea Slider ---------- */
+    // ------------------- TEA SLIDER (LOCAL IMAGES ONLY) -------------------
+
+const teaImages = [
+   "images/IMG-20251202-WA0002.jpg",
+    "images/IMG-20251202-WA00011.jpg",
+    "images/IMG-20251202-WA0005.jpg",
+    "images/IMG-20251202-WA0006.jpg",
+    "images/IMG-20251202-WA0007.jpg",
+    "images/IMG-20251202-WA0008.jpg",
+    "images/IMG-20251202-WA0009.jpg",
+    "images/IMG-20251202-WA0010.jpg",
+    "images/IMG-20251202-WA00012.jpg",
+    "images/IMG-20251202-WA00013.jpg",
+    "images/IMG-20251202-WA00014.jpg",
+    "images/IMG-20251202-WA00115.jpg"
+];
+
+let sliderIndex = 0;
+let teaInterval = null;
+
+// Start Slider
+function startTeaSlider() {
+    const img = document.getElementById('tea-img');
+    if (!img) {
+        console.error("IMG with id='tea-img' not found!");
+        return;
+    }
+
+    // First Image Load
+    img.src = teaImages[0];
+
+    // Prevent Duplicate Interval
+    if (teaInterval) return;
+
+    // Auto Change Image
+    teaInterval = setInterval(() => {
+        sliderIndex = (sliderIndex + 1) % teaImages.length;
+        img.src = teaImages[sliderIndex];
+    }, 1200); // 1.2 second swap
+}
+
+// Open Tea Lover Page
+function openTeaLover() {
+    document.getElementById('main-page').style.display = 'none';
+
+    const tea = document.getElementById('tea-lover-page');
+    tea.style.display = 'block';
+    tea.setAttribute('aria-hidden', 'false');
+
+    startTeaSlider();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Close Tea Page
+function closeTeaLover() {
+    const tea = document.getElementById('tea-lover-page');
+    tea.style.display = 'none';
+    tea.setAttribute('aria-hidden', 'true');
+
+    document.getElementById('main-page').style.display = '';
+
+    if (teaInterval) { 
+        clearInterval(teaInterval); 
+        teaInterval = null; 
+    }
+    sliderIndex = 0;
+}
+
+        /* ---------- Modal / Toast ---------- */
+        function openModal(type) {
+            const bg = document.getElementById('modal-bg');
+            bg.style.display = 'flex';
+            bg.setAttribute('aria-hidden', 'false');
+            // optional: pre-fill message based on type
+            const msg = document.getElementById('msg');
+            if (type === 'propose') msg.value = "میں آپ سے رشتۂ محبت کے بارے میں بات کرنا چاہتا ہوں...";
+            else if (type === 'accept') msg.value = "میں نے ہاں کر دی — بہت خوش ہوں!";
+            else if (type === 'poetry') msg.value = "تمھارے لیے چند اشعار...";
+            else msg.value = "";
+            msg.focus();
+        }
+
+        function closeModal() {
+            const bg = document.getElementById('modal-bg');
+            bg.style.display = 'none';
+            bg.setAttribute('aria-hidden', 'true');
+        }
+
+        function showToast(text, ms = 2000) {
+            const t = document.getElementById('toast');
+            t.innerText = text;
+            t.style.display = 'block';
+            setTimeout(() => { t.style.display = 'none'; }, ms);
+        }
+
+        function sendMessage() {
+            const msgEl = document.getElementById('msg');
+            const text = msgEl.value.trim();
+            if (!text) {
+                showToast("براہ کرم پیغام لکھیں", 1500);
+                return;
+            }
+            // Here you could call an API or email service — currently we only show UI feedback
+            closeModal();
+            msgEl.value = "";
+            showToast("پیغام کامیابی سے بھیج دیا گیا ❤️", 2000);
+        }
+
+        /* Accessibility: close modal with Esc */
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('modal-bg');
+                if (modal && modal.style.display === 'flex') { closeModal(); }
+            }
+        });
+
+        /* Prevent accidental multiple clicks on actions by brief disable */
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', (ev) => {
+                btn.disabled = true;
+                setTimeout(() => btn.disabled = false, 700);
+            });
+        });
+
+        /* Initialize small behaviors */
+        (function init() {
+            // nothing heavy to init now
+        })();
+    </script>
+
+</body>
+
+</html>
